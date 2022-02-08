@@ -1,7 +1,7 @@
 
+// number, string veya boolean içeren arrayler için geliştirilmiş includes fonk.
 
-
-Array.prototype.includesCi= function(val) {
+Array.prototype.includesCI= function(val) {
 
     if (!isNaN(val)) {
         return this.includes(val);
@@ -22,4 +22,4 @@ let sonuc = false;
     
 }
 
-console.log(["elmA","aRmut","PoRTaKaL","uzum",2,5,6,true].includesCi("ELMA"));
+console.log(["elmA","aRmut","PoRTaKaL","uzum",2,5,6,true].includesCI("ELMA"));
