@@ -7,11 +7,12 @@ let sonuc;
     sonuc = this.every(item=>{
        if (item.toLocaleLowerCase() === val.toLocaleLowerCase()) {
            return false;
-       } else {return true;}
+       }  else {return true;}
+
    });
 
    return sonuc ? false : true;
            
 }
 
-console.log(["elmA","aRmut","PoRTaKaL","uzum"].includesCI("elma"));
+//console.log(["elmA","aRmut","PoRTaKaL","uzum"].includesCI("UZUM"));
