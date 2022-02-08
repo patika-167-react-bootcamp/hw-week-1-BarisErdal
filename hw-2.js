@@ -1,6 +1,4 @@
 
-// number, string veya boolean içeren arrayler için geliştirilmiş includes fonk.
-
 Array.prototype.includesCI= function(val) {
 
 let sonuc;
@@ -15,4 +13,3 @@ let sonuc;
            
 }
 
-//console.log(["elmA","aRmut","PoRTaKaL","uzum"].includesCI("UZUM"));
