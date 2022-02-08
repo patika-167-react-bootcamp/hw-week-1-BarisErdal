@@ -1,14 +1,25 @@
 
 
 
-String.prototype.includesCi= function(val) {
+Array.prototype.includesCi= function(val) {
 
     if (!isNaN(val)) {
-        val = String(val);
+        return this.includes(val);
     }
+    
 
-    return this.includes(val.toLocaleLowerCase());
- 
+let sonuc = false;
+   this.forEach(kelime=>{
+        if (!isNaN(kelime)) { return this.includes(val);} //arraydeki numbers ve boolean için
+
+        if(kelime.toLocaleLowerCase() === val.toLocaleLowerCase()) //arraydeki stringler için
+        { sonuc = true; }; 
+    
+   });
+
+   return sonuc;
+       
+    
 }
 
-//console.log("eda eDa baris bariS 7".includesCi("EDA"));
+console.log(["elmA","aRmut","PoRTaKaL","uzum",2,5,6,true].includesCi("ELMA"));
