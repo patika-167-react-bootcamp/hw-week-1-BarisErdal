@@ -29,8 +29,6 @@ const folders = [
         return file.id === fileId;
   })
 });
- 
-
     indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
 
     //console.log("klasör index", indexFolder,"dosya id", indexFile);
@@ -61,11 +59,57 @@ return idP;
   }
 
 
+  function move (foldersArr,fileId, targetFolderId) {
+
+    let indexFolder, indexFile, targetIndex;
+
+    indexFolder = foldersArr.findIndex(function(folder) {
+      return folder.files.some(function(file) {
+        return file.id === fileId;
+  })
+});
+    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
+
+    targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId)
+    
+   let fileToMove =  { 
+      id: foldersArr[indexFolder].files[indexFile].id, 
+      name: foldersArr[indexFolder].files[indexFile].name };
+    
+    foldersArr[targetIndex].files.push(fileToMove);
+
+    //console.log("klasör index", indexFolder,"dosya id", indexFile);
+    foldersArr[indexFolder].files.splice(indexFile,indexFile+1);
+
+  }
+
+
+  function copy (foldersArr,fileId, targetFolderId) {
+
+    let indexFolder, indexFile, targetIndex;
+
+    indexFolder = foldersArr.findIndex(function(folder) {
+      return folder.files.some(function(file) {
+        return file.id === fileId;
+  })
+});
+    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
+
+    targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId);
+    
+  let fileToMove =  { 
+      id: Math.random(), 
+      name: foldersArr[indexFolder].files[indexFile].name };
+    
+    foldersArr[targetIndex].files.push(fileToMove);
+  }
+
+copy (folders,18,7);
 //remove(folders,21);
 //removeFolder(folders,7);
-parentFolderOf(folders,21);
+//parentFolderOf(folders,21);
   /* 
-  move(17,6) // dosyayı klasöre taşıyacak
+  ****move(17,6) // dosyayı klasöre taşıyacak
   copy(18,7) // kopyasını oluşturacak
   ****remove(17) // dosyayı silecek
   ****removeFolder(6) //klasörü ve altındaki tüm dosyaları silecek
