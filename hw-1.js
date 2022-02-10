@@ -49,13 +49,14 @@ const folders = [
   function parentFolderOf (foldersArr,fileId) {
     let indexParentFolder;
 
-    indexParentFolder = foldersArr.findIndex(function(folder) {
+    indexParentFolder = foldersArr.findIndex(function (folder) {
       return folder.files.some(function(file) {
         return file.id === fileId;
   })
 });
-
-return foldersArr[indexParentFolder].id;
+let idP = foldersArr[indexParentFolder].id
+console.log(idP,"index of P");
+return idP;
 
   }
 
