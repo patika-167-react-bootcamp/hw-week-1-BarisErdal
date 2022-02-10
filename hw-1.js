@@ -22,24 +22,18 @@ const folders = [
   ]
   
   function remove (foldersArr,fileId, folderId) {
-      let indexFolder,indexFile;
-    foldersArr.every(folder=>{
-        if(folder.id === folderId){
-            indexFolder=foldersArr.files.indexOf()
-            folder.files.every(file=>{
-                if (file.id === fileId) {indexFile = file.id;
-                return false}
-            });
-            return false;
-        };});
+    let indexFolder,indexFile;
 
+    indexFolder = foldersArr.findIndex(item=> item.id === folderId);
+    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
 
-
-    foldersArr[indexFolder].files.splice(indexFile,indexFile);
+    //console.log("klasör index", indexFolder,"dosya id", indexFile);
+    foldersArr[indexFolder].files.splice(indexFile,indexFile+1);
+    //console.log(folders[1].files);
   }
 
 
-remove(folders,3,5);
+//remove(folders,21,6);
   /* 
   move(17,6) // dosyayı klasöre taşıyacak
   copy(18,7) // kopyasını oluşturacak
