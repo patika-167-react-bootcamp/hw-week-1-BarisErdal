@@ -21,10 +21,16 @@ const folders = [
     },
   ]
   
-  function remove (foldersArr,fileId, folderId) {
-    let indexFolder,indexFile;
+  function remove (foldersArr,fileId) {
+    let indexFolder, indexFile;
 
-    indexFolder = foldersArr.findIndex(item=> item.id === folderId);
+    indexFolder = foldersArr.findIndex(function(folder) {
+      return folder.files.some(function(file) {
+        return file.id === fileId;
+  })
+});
+ 
+
     indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
 
     //console.log("klasör index", indexFolder,"dosya id", indexFile);
@@ -33,10 +39,33 @@ const folders = [
   }
 
 
-//remove(folders,21,6);
+  function removeFolder (foldersArr, folderId) {
+    let indexFolder;
+    indexFolder = foldersArr.findIndex(item=> item.id === folderId);
+
+    foldersArr.splice(indexFolder,indexFolder+1);
+  }
+
+  function parentFolderOf (foldersArr,fileId) {
+    let indexParentFolder;
+
+    indexParentFolder = foldersArr.findIndex(function(folder) {
+      return folder.files.some(function(file) {
+        return file.id === fileId;
+  })
+});
+
+return foldersArr[indexParentFolder].id;
+
+  }
+
+
+//remove(folders,21);
+//removeFolder(folders,7);
+parentFolderOf(folders,21);
   /* 
   move(17,6) // dosyayı klasöre taşıyacak
   copy(18,7) // kopyasını oluşturacak
-  remove(17) // dosyayı silecek
-  removeFolder(6) //klasörü ve altındaki tüm dosyaları silecek
-  parentFolderOf(17) // ==> 5 */
+  ****remove(17) // dosyayı silecek
+  ****removeFolder(6) //klasörü ve altındaki tüm dosyaları silecek
+  ****parentFolderOf(17) // ==> 5 */
