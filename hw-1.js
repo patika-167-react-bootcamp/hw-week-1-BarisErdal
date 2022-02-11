@@ -21,6 +21,33 @@ const folders = [
     },
   ]
   
+  function copy (foldersArr,fileId, targetFolderId) {
+
+    let indexFolder, indexFile, targetIndex;
+
+    indexFolder = foldersArr.findIndex(function(folder) {
+      return folder.files.some(function(file) {
+        return file.id === fileId;
+  })
+});
+    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
+
+    targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId);
+    
+  let fileToMove =  { 
+      id: Math.random(), 
+      name: foldersArr[indexFolder].files[indexFile].name };
+    
+if (foldersArr.hasOwnProperty('files') === false) {
+      foldersArr[targetIndex]["files"]=[];
+     }
+
+foldersArr[targetIndex].files.push(fileToMove);      
+  }
+
+
+
+
   function remove (foldersArr,fileId) {
     let indexFolder, indexFile;
 
@@ -76,6 +103,9 @@ return idP;
       id: foldersArr[indexFolder].files[indexFile].id, 
       name: foldersArr[indexFolder].files[indexFile].name };
     
+      if (foldersArr.hasOwnProperty('files') === false) {
+        foldersArr[targetIndex]["files"]=[];
+       }
     foldersArr[targetIndex].files.push(fileToMove);
 
     //console.log("klasör index", indexFolder,"dosya id", indexFile);
@@ -84,27 +114,10 @@ return idP;
   }
 
 
-  function copy (foldersArr,fileId, targetFolderId) {
-
-    let indexFolder, indexFile, targetIndex;
-
-    indexFolder = foldersArr.findIndex(function(folder) {
-      return folder.files.some(function(file) {
-        return file.id === fileId;
-  })
-});
-    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
-
-    targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId);
-    
-  let fileToMove =  { 
-      id: Math.random(), 
-      name: foldersArr[indexFolder].files[indexFile].name };
-    
-    foldersArr[targetIndex].files.push(fileToMove);
-  }
+  
 
 copy (folders,18,7);
+
 //remove(folders,21);
 //removeFolder(folders,7);
 //parentFolderOf(folders,21);
