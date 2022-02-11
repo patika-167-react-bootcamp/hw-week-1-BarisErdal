@@ -21,7 +21,7 @@ const folders = [
     },
   ]
   
-
+//dosya ve klasör indexlerini bulan fonk.
   function indexFinder (foldersArr,fileId) {
     let indexFile;
     let indexFolder = foldersArr.findIndex(function(folder) {
@@ -46,7 +46,7 @@ const folders = [
 
     [indexFolder, indexFile] = indexFinder(foldersArr,fileId);
 
-    targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId);
+    targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId); //hedef klasör indexi
     
     let fileToMove =  { 
       id: Math.random(), 
