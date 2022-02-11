@@ -21,28 +21,42 @@ const folders = [
     },
   ]
   
+
+  function indexFinder (foldersArr,fileId) {
+    let indexFile;
+    let indexFolder = foldersArr.findIndex(function(folder) {
+      
+      
+      indexFile = folder.files.findIndex(function(file) {
+        return file.id === fileId })
+    
+        if(indexFile>-1) {return true}
+          
+    })
+    
+    return [indexFolder, indexFile]
+    
+    }
+    
+
+
   function copy (foldersArr,fileId, targetFolderId) {
 
     let indexFolder, indexFile, targetIndex;
 
-    indexFolder = foldersArr.findIndex(function(folder) {
-      return folder.files.some(function(file) {
-        return file.id === fileId;
-  })
-});
-    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
+    [indexFolder, indexFile] = indexFinder(foldersArr,fileId);
 
     targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId);
     
-  let fileToMove =  { 
+    let fileToMove =  { 
       id: Math.random(), 
       name: foldersArr[indexFolder].files[indexFile].name };
     
-if (foldersArr.hasOwnProperty('files') === false) {
+    if (foldersArr.hasOwnProperty('files') === false) {
       foldersArr[targetIndex]["files"]=[];
      }
 
-foldersArr[targetIndex].files.push(fileToMove);      
+    foldersArr[targetIndex].files.push(fileToMove);      
   }
 
 
@@ -50,14 +64,7 @@ foldersArr[targetIndex].files.push(fileToMove);
 
   function remove (foldersArr,fileId) {
     let indexFolder, indexFile;
-
-    indexFolder = foldersArr.findIndex(function(folder) {
-      return folder.files.some(function(file) {
-        return file.id === fileId;
-  })
-});
-    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
-
+    [indexFolder, indexFile] = indexFinder(foldersArr,fileId);
     //console.log("klasör index", indexFolder,"dosya id", indexFile);
     foldersArr[indexFolder].files.splice(indexFile,indexFile+1);
     //console.log(folders[1].files);
@@ -71,17 +78,11 @@ foldersArr[targetIndex].files.push(fileToMove);
     foldersArr.splice(indexFolder,indexFolder+1);
   }
 
-  function parentFolderOf (foldersArr,fileId) {
-    let indexParentFolder;
 
-    indexParentFolder = foldersArr.findIndex(function (folder) {
-      return folder.files.some(function(file) {
-        return file.id === fileId;
-  })
-});
-let idP = foldersArr[indexParentFolder].id
-console.log(idP,"index of P");
-return idP;
+  function parentFolderOf (foldersArr,fileId) {
+   let indexFolder, indexFile;
+    [indexFolder, indexFile] = indexFinder(foldersArr,fileId);
+    return foldersArr[indexFolder].id;
 
   }
 
@@ -89,17 +90,11 @@ return idP;
   function move (foldersArr,fileId, targetFolderId) {
 
     let indexFolder, indexFile, targetIndex;
-
-    indexFolder = foldersArr.findIndex(function(folder) {
-      return folder.files.some(function(file) {
-        return file.id === fileId;
-  })
-});
-    indexFile = foldersArr[indexFolder].files.findIndex(item=> item.id === fileId);
-
+    [indexFolder, indexFile] = indexFinder(foldersArr,fileId);
+    
     targetIndex = foldersArr.findIndex(item=>item.id === targetFolderId)
     
-   let fileToMove =  { 
+    let fileToMove =  { 
       id: foldersArr[indexFolder].files[indexFile].id, 
       name: foldersArr[indexFolder].files[indexFile].name };
     
@@ -108,7 +103,6 @@ return idP;
        }
     foldersArr[targetIndex].files.push(fileToMove);
 
-    //console.log("klasör index", indexFolder,"dosya id", indexFile);
     foldersArr[indexFolder].files.splice(indexFile,indexFile+1);
 
   }
@@ -116,14 +110,5 @@ return idP;
 
   
 
-copy (folders,18,7);
 
-//remove(folders,21);
-//removeFolder(folders,7);
-//parentFolderOf(folders,21);
-  /* 
-  ****move(17,6) // dosyayı klasöre taşıyacak
-  copy(18,7) // kopyasını oluşturacak
-  ****remove(17) // dosyayı silecek
-  ****removeFolder(6) //klasörü ve altındaki tüm dosyaları silecek
-  ****parentFolderOf(17) // ==> 5 */
+
